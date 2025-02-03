@@ -96,7 +96,7 @@ export default function Habits() {
               <li key={habit.id}>
                 <Button
                   variant="outline"
-                  className={`w-full h-auto justify-between px-2 text-left ${habit.completed ? "bg-green-100" : ""}`}
+                  className={`w-full h-auto justify-between px-2 text-left  ${habit.completed ? "bg-green-100" : ""} hover:${habit.completed ? "bg-green-100" : ""} `}
                   onClick={() => toggleHabit(habit.id)}
                 >
                   <div>
