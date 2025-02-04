@@ -13,32 +13,32 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
 
     return (
         <div className="flex flex-col h-screen">
-            <header className="bg-gray-800 text-white p-4">
+            <header className="bg-gray-900 text-white p-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <Link href="/">
                     <img src="/android-chrome-192x192.png" alt="logo" className="w-8 h-8" />
                     </Link>
                     {/* <h1 className="text-xl font-bold">Mutabaah Yaumiyah</h1> */}
-                    {isLoggedIn && <p className="text-sm">{`Hi ${localStorage.getItem('username')}`}</p>}
+                    {isLoggedIn && <p className="text-sm">{`Hi `}<strong>{localStorage.getItem('username')}</strong>!</p>}
                     {isLoggedIn && <LogoutButton />}
 
                 </div>
             </header>
             <main className="flex-1 overflow-y-auto p-4">{children}</main>
             {isLoggedIn && (
-                <nav className="bg-gray-800 text-white p-4">
+                <nav className="bg-gray-900 text-white p-4">
                     <div className="container mx-auto flex justify-around items-center">
                         <Link href="/" className="flex flex-col items-center">
-                            <Home size={24} className={selected("/") ? "text-blue-500" : "text-white"} />
-                            <span className="text-xs mt-1">Habits</span>
+                            <Home size={24} className={selected("/") ? "text-white" : "text-gray-500"} />
+                            <span className="text-xs mt-1" style={{ color: selected("/") ? "white" : "gray" }}>Habits</span>
                         </Link>
                         <Link href="/manage" className="flex flex-col items-center">
-                            <Settings size={24} className={selected("/manage") ? "text-blue-500" : "text-white"} />
-                            <span className="text-xs mt-1">Manage</span>
+                            <Settings size={24} className={selected("/manage") ? "text-white" : "text-gray-500"} />
+                            <span className="text-xs mt-1" style={{ color: selected("/manage") ? "white" : "gray" }}>Manage</span>
                         </Link>
                         <Link href="/history" className="flex flex-col items-center">
-                            <BarChart size={24} className={selected("/history") ? "text-blue-500" : "text-white"} />
-                            <span className="text-xs mt-1">History</span>
+                            <BarChart size={24} className={selected("/history") ? "text-white" : "text-gray-500"} />
+                            <span className="text-xs mt-1" style={{ color: selected("/history") ? "white" : "gray" }}>History</span>
                         </Link>
                     </div>
                 </nav>

@@ -48,21 +48,20 @@ export default function History() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="completion" fill="#8884d8" />
+                <Bar dataKey="completion" fill="#00A86B" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </CardContent>
       </Card>
-      <Card className="w-full max-w-md mx-auto">
+      {/* <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle>Analytics</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-lg font-semibold">Average Completion Rate: {averageCompletion.toFixed(2)}%</p>
-          {/* Add more analytics here */}
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   )
 }
