@@ -15,7 +15,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
         <div className="flex flex-col h-screen">
             <header className="bg-gray-800 text-white p-4">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-xl font-bold">Habit Tracker</h1>
+                    <h1 className="text-xl font-bold">Mutabaah Yaumiyah</h1>
                     {isLoggedIn && <LogoutButton />}
                 </div>
             </header>
