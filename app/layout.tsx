@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "🎯 Habit Tracker",
   description: "Track your daily habits and view your progress",
+  icons: {
+    icon: '/favicon.png', 
+  },
 }
 
 export default function RootLayout({
