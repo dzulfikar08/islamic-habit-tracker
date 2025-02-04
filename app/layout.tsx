@@ -8,7 +8,7 @@ import LayoutContent from "@/components/layout-content"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "🎯 Habit Tracker",
+  title: "Mutabaah Yaumiyah 🌙",
   description: "Track your daily habits and view your progress",
   icons: {
     icon: '/favicon.png', 

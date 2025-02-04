@@ -42,6 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     deleteCookie("isLoggedIn")
     deleteCookie("authToken")
+    localStorage.clear()
     setIsLoggedIn(false)
   }
 

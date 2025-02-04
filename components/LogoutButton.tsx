@@ -19,7 +19,6 @@ export default function LogoutButton() {
   return (
     <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white">
       <LogOut size={18} className="mr-2" />
-      Logout
     </Button>
   )
 }

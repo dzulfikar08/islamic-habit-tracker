@@ -27,7 +27,6 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       })
       
-
       if (response.ok) {
         toast({
           title: "Login Successful",
@@ -35,6 +34,7 @@ export default function LoginPage() {
           variant: "default"
         })
         const data = await response.json()
+        localStorage.setItem("username", data.data.NAME)
         login(data.data.token)
         router.push("/")
         console.log("routing to /manage")
@@ -59,7 +59,7 @@ export default function LoginPage() {
     <div className="h-full flex items-center justify-center px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Login to Habit Tracker</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Login to Mutabaah Yaumiyah 🌙</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
