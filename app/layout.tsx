@@ -12,6 +12,9 @@ export const metadata = {
   description: "Track your daily habits and view your progress",
   icons: {
     icon: '/favicon.png', 
+    apple: '/apple-touch-icon.png',
+    other: '/android-chrome-192x192.png',
+
   },
 }
 

@@ -15,7 +15,9 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
         <div className="flex flex-col h-screen">
             <header className="bg-gray-800 text-white p-4">
                 <div className="container mx-auto flex justify-between items-center">
+                    <Link href="/">
                     <img src="/android-chrome-192x192.png" alt="logo" className="w-8 h-8" />
+                    </Link>
                     {/* <h1 className="text-xl font-bold">Mutabaah Yaumiyah</h1> */}
                     {isLoggedIn && <p className="text-sm">{`Hi ${localStorage.getItem('username')}`}</p>}
                     {isLoggedIn && <LogoutButton />}

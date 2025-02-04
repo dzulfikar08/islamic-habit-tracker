@@ -9,6 +9,7 @@ import { format } from "date-fns"
 import { useToast } from "@/hooks/use-toast"
 
 import useSWR from "swr"
+import { Label, RadialBar, RadialBarChart, Tooltip } from "recharts"
 
 interface Habit {
   id: number
@@ -81,10 +82,38 @@ export default function Habits() {
     setSelectedDate(new Date(e.target.value))
   }
 
+  let completedHabits = 0
+  habits.forEach((habit) => {
+    if (habit.completed) {
+      completedHabits++
+    }
+  })
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-2xl font-bold">Habits</CardTitle>
+        {habits.length === 0 ? null : (
+          <div className="flex items-center">
+            <p className="text-xs">{((completedHabits/habits.length)*100).toFixed(1)}%</p>
+            <RadialBarChart
+              width={35}
+              height={35}
+              data={[{ value: completedHabits, fill: "green" }]}
+              innerRadius="80%"
+              outerRadius="100%"
+              startAngle={90}
+              endAngle={(completedHabits/habits.length) * -270}
+              barSize={8}
+            >
+              <RadialBar
+                dataKey="value"
+                cornerRadius={8}
+              />
+            </RadialBarChart>
+          </div>
+        )}
+
         <Input type="date" value={format(selectedDate?? new Date(), "yyyy-MM-dd")} onChange={handleDateChange} className="w-auto" />
       </CardHeader>
       <CardContent>

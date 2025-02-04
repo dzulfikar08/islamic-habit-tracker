@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: '🎯 Mutabaah',
     description: 'Track your daily habits and view your progress',
     start_url: '/',
-    display: 'standalone',
+    display: 'fullscreen',
     background_color: '#ffffff',
     theme_color: '#000000',
     icons: [
@@ -18,6 +18,11 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src: '/android-chrome-512x512.png',
         sizes: '512x512',
+        type: 'image/png',
+      },
+      {
+        src: '/apple-touch-icon.png',
+        sizes: '180x180',
         type: 'image/png',
       },
     ],
