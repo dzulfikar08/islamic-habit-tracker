@@ -24,7 +24,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
 
                 </div>
             </header>
-            <main className="flex-1 overflow-y-auto p-4">{children}</main>
+            <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">{children}</main>
             {isLoggedIn && (
                 <nav className="bg-gray-900 text-white p-4">
                     <div className="container mx-auto flex justify-around items-center">
