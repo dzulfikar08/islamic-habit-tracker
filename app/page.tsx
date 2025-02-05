@@ -10,7 +10,8 @@ import { useToast } from "@/hooks/use-toast"
 
 import useSWR from "swr"
 import { Label, RadialBar, RadialBarChart, Tooltip } from "recharts"
-import router from "next/router"
+import {useRouter} from "next/navigation"
+import { useAuth } from "./contexts/AuthContext"
 
 interface Habit {
   id: number
@@ -20,9 +21,21 @@ interface Habit {
   completed: boolean
 }
 
-const fetcher = (url: string) => fetch(url, { headers: { "Authorization": `Bearer ${document.cookie.split("; ").find((row) => row.startsWith("authToken="))?.split("=")[1]}` } }).then((res) => res.json());
-
+const fetcher = (url: string) => 
+  fetch(url, { 
+    headers: { 
+      "Authorization": `Bearer ${document.cookie.split("; ")
+        .find((row) => row.startsWith("authToken="))
+        ?.split("=")[1]}`
+    } 
+  }).then((res) => {
+    if (!res.ok) throw res; // Ensure errors can be caught in `onError`
+    return res.json();
+  });
 export default function Habits() {
+  const { logout } = useAuth()
+  
+  const router = useRouter()
   const [habits, setHabits] = useState<Habit[]>([])
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [loading, setLoading] = useState<number | null>(null)
@@ -34,7 +47,13 @@ export default function Habits() {
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
       onError: (error) => {
-        if (error.status === 401) {
+        if (error?.status === 401) {
+          toast({
+            title: "Unauthorized",
+            description: "You are not logged in",
+            variant: "destructive",
+          })
+          logout()
           router.push("/login")
         }
       }
@@ -82,6 +101,12 @@ export default function Habits() {
           variant: "default",
         });
       } else if(res.status === 401) {
+        toast({
+          title: "Unauthorized",
+          description: "You are not logged in",
+          variant: "destructive",
+        })
+        logout()
         router.push("/login")
       }
       else {

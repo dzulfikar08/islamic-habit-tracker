@@ -8,7 +8,9 @@ import { Pencil, Trash2, Plus } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
 import useSWR, { mutate } from "swr"
-import router from "next/router"
+import {useRouter} from "next/navigation"
+import { useAuth } from "../contexts/AuthContext"
+
 
 
 interface Habit {
@@ -18,9 +20,16 @@ interface Habit {
   toTime: string
 }
 
-const fetcher = (url: string, token: string) => fetch(url, {headers: { "Authorization": `Bearer ${document.cookie.split("; ").find((row) => row.startsWith("authToken="))?.split("=")[1]}` }}).then((res) => res.json());
+const fetcher = (url: string, token: string) => fetch(url, {headers: { "Authorization": `Bearer ${document.cookie.split("; ").find((row) => row.startsWith("authToken="))?.split("=")[1]}` }})
+.then((res) => {
+  if (!res.ok) throw res; // Ensure errors can be caught in `onError`
+  return res.json();
+})
 
 export default function ManageHabits() {
+    const { logout } = useAuth()
+  
+  const router = useRouter()
   const [isDialogAddOpen, setIsDialogAddOpen] = useState(false)
   const [isDialogEditOpen, setIsDialogEditOpen] = useState(false)
   const [habits, setHabits] = useState<Habit[]>([])
@@ -39,7 +48,13 @@ export default function ManageHabits() {
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
       onError: (error) => {
-        if (error.status === 401) {
+        if (error?.status === 401) {
+          toast({
+            title: "Unauthorized",
+            description: "You are not logged in",
+            variant: "destructive",
+          })
+          logout()
           router.push("/login")
         }
       }
@@ -89,6 +104,14 @@ export default function ManageHabits() {
                 variant: "destructive"
               })
             })
+          } else if(response.status === 401) {
+            toast({
+              title: "Unauthorized",
+              description: "You are not logged in",
+              variant: "destructive",
+            })
+            logout()
+            router.push("/login")
           } else {
             toast({
               title: "Success",
@@ -118,6 +141,14 @@ export default function ManageHabits() {
           toast({
             title: "Success",
             description: "Habit deleted successfully",})
+        } else if(response.status === 401) {
+          toast({
+            title: "Unauthorized",
+            description: "You are not logged in",
+            variant: "destructive",
+          })
+          logout()
+          router.push("/login")
         } else {
           response.json().then((error) => {
             toast({
@@ -153,7 +184,18 @@ export default function ManageHabits() {
           }
         ),
       })
-        .then((response) => response.json())
+        .then((response) => { if(response.ok) response.json()
+          else if(response.status === 401) {
+            toast({
+              title: "Unauthorized",
+              description: "You are not logged in",
+              variant: "destructive",
+            })
+            logout()
+            router.push("/login")
+          }
+        }
+      )
         .then((habit) => {
           refetchHabit()
           setEditingHabit(null)
