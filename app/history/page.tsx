@@ -30,17 +30,20 @@ export default function History() {
           <CardTitle>Habit History</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2 mb-4">
+          <div className="gap-4 mb-4 grid grid-cols-2 justify-items-center">
             <Input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               placeholder="Start Date"
+              // className="w-1/2"
             />
-            <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} placeholder="End Date" />
-            <Button className="w-full">Filter</Button>
+            <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} placeholder="End Date" 
+            // className="w-1/2"
+            />
           </div>
-          <div className="h-64 w-full">
+          <Button className="w-full">Filter</Button>
+          <div className="mt-8 h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />

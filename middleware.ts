@@ -17,17 +17,17 @@ export function middleware(request: NextRequest) {
   //   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
   // }
 
-  if (!isLoggedIn && !isLoginPage) {
+  if (authTokenExpired && !isLoginPage) {
     console.log("redirect to login because not logged in and not in loginpage")
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
-  if (isLoggedIn && isLoginPage && !authTokenExpired) {
+  if ( isLoginPage && !authTokenExpired) {
     console.log("redirect to /")
     return NextResponse.redirect(new URL("/", request.url))
   }
 
-  if (authTokenExpired && !isLoginPage && isLoggedIn) {
+  if (authTokenExpired && !isLoginPage) {
     request.cookies.delete("authToken")
     request.cookies.delete("isLoggedIn")
     // cookies().delete("authToken")

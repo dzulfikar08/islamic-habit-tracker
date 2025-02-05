@@ -158,6 +158,7 @@ export default function ManageHabits() {
 
   return (
     <Card className="w-full max-w-md mx-auto">
+      <div className="sticky -top-5 bg-white z-10 rounded-lg">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Manage Habits</CardTitle>
         <Dialog open={isDialogAddOpen} onOpenChange={setIsDialogAddOpen}>
@@ -195,6 +196,7 @@ export default function ManageHabits() {
           </DialogContent>
         </Dialog>
       </CardHeader>
+      </div>
       <CardContent>
         {habits.length === 0 ? (
           <p className="text-center text-gray-500">No habits found</p>
