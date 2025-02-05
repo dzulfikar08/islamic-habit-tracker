@@ -17,6 +17,10 @@ export function middleware(request: NextRequest) {
   //   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
   // }
 
+  if(!authToken){
+    return NextResponse.redirect(new URL("/login", request.url))
+  }
+
   if (authTokenExpired && !isLoginPage) {
     console.log("redirect to login because not logged in and not in loginpage")
     return NextResponse.redirect(new URL("/login", request.url))
