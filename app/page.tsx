@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast"
 
 import useSWR from "swr"
 import { Label, RadialBar, RadialBarChart, Tooltip } from "recharts"
+import router from "next/router"
 
 interface Habit {
   id: number
@@ -26,14 +27,19 @@ export default function Habits() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [loading, setLoading] = useState<number | null>(null)
   const { toast } = useToast()
-
   const { data: habitsFetched, isValidating, mutate } = useSWR<{ data: Habit[] }>(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/habits/transaction?habitDate=${format(selectedDate ?? new Date(), "yyyy-MM-dd")}`,
     fetcher,
     {
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
-    }
+      onError: (error) => {
+        if (error.status === 401) {
+          router.push("/login")
+        }
+      }
+    },
+
   );
 
   useEffect(() => {
@@ -75,7 +81,10 @@ export default function Habits() {
           description: "Habit updated successfully",
           variant: "default",
         });
-      } else {
+      } else if(res.status === 401) {
+        router.push("/login")
+      }
+      else {
         res.json().then((json) => alert(json.message));
       }
     }).finally(() => setLoading(null));

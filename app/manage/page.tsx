@@ -8,6 +8,7 @@ import { Pencil, Trash2, Plus } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
 import useSWR, { mutate } from "swr"
+import router from "next/router"
 
 
 interface Habit {
@@ -37,6 +38,11 @@ export default function ManageHabits() {
     {
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
+      onError: (error) => {
+        if (error.status === 401) {
+          router.push("/login")
+        }
+      }
     }
   );
   
