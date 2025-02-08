@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Pencil, Trash2, Plus } from "lucide-react"
+import { Pencil, Trash2, Plus, LoaderCircle } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
 import useSWR, { mutate } from "swr"
@@ -41,12 +41,13 @@ export default function ManageHabits() {
 
 
 
-  const { data: habitsFetched, isValidating } = useSWR<{ data: Habit[]}>(
+  const { data: habitsFetched, isValidating, mutate } = useSWR<{ data: Habit[]}>(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/habits`,
     fetcher,
     {
-      revalidateOnFocus: true,
+      revalidateOnFocus: false,
       revalidateOnReconnect: true,
+
       onError: (error) => {
         if (error?.status === 401) {
           toast({
@@ -63,7 +64,11 @@ export default function ManageHabits() {
   
   useEffect(() => {
     if (habitsFetched?.data) {
-      setHabits(habitsFetched.data);
+      setHabits(
+        habitsFetched.data.sort((a, b) =>
+          a.fromTime.localeCompare(b.fromTime)
+        )
+      );
     }
   }, [habitsFetched]);
   
@@ -75,14 +80,14 @@ export default function ManageHabits() {
   const refetchHabit = async () => {
     setIsLoading(true);
     try {
-      await mutate(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/habits`);
+      await mutate();
     } finally {
       setIsLoading(false);
     }
   };
-
   const addHabit = () => {
     if (newHabit.name.trim() && newHabit.fromTime && newHabit.toTime) {
+      setIsLoading(true);
       fetch(process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/habits", {
         method: "POST",
         headers: {
@@ -120,6 +125,9 @@ export default function ManageHabits() {
             return response.json()
           }
         })
+        .finally(() => {
+          setIsLoading(false);
+        })
         .then(() => {
           refetchHabit();
           setNewHabit({ name: "", fromTime: "", toTime: "" })
@@ -129,6 +137,7 @@ export default function ManageHabits() {
   }
 
   const deleteHabit = (id: number) => {
+    setIsLoading(true);
     fetch(process.env.NEXT_PUBLIC_BACKEND_BASE_URL +`/api/habits/${id}`, {
       method: "DELETE",
       headers: {
@@ -159,17 +168,17 @@ export default function ManageHabits() {
           })
         }
       })
+      .finally(() => {
+        setIsLoading(false);
+      })
       .then(() => {
         refetchHabit()
       })
   }
 
-  const startEditing = (habit: Habit) => {
-    setEditingHabit(habit)
-  }
-
   const saveEdit = (id: number, name: string, fromTime: string, toTime: string) => {
     if (editingHabit) {
+      setIsLoading(true)
       fetch(process.env.NEXT_PUBLIC_BACKEND_BASE_URL +`/api/habits/${id}`, {
         method: "PUT",
         headers: {
@@ -196,7 +205,10 @@ export default function ManageHabits() {
           }
         }
       )
-        .then((habit) => {
+      .finally(() => {
+        setIsLoading(false);
+      })
+        .then(() => {
           refetchHabit()
           setEditingHabit(null)
           setIsDialogEditOpen(false)
@@ -237,8 +249,16 @@ export default function ManageHabits() {
                   onChange={(e) => setNewHabit({ ...newHabit, toTime: e.target.value })}
                 />
               </div>
-              <Button onClick={() => addHabit()} className="w-full">
-                Add Habit
+              <Button
+                onClick={() => addHabit()}
+                className="w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <LoaderCircle className="animate-spin h-5 w-5 mx-auto text-white" />
+                ) : (
+                  "Add Habit"
+                )}
               </Button>
             </div>
           </DialogContent>
@@ -246,9 +266,12 @@ export default function ManageHabits() {
       </CardHeader>
       </div>
       <CardContent>
-        {habits.length === 0 ? (
+        {/* {isLoading ? (
+                      <LoaderCircle className="animate-spin h-4 w-4 mx-auto text-black" />
+                    ) : 
+        habits.length === 0 ? (
           <p className="text-center text-gray-500">No habits found</p>
-        ) : (
+        ) : ( */}
           <ul className="space-y-2">
             {habits.map((habit) => (
               <li key={habit.id} className="flex items-center justify-between bg-white p-2 rounded-md shadow">
@@ -276,36 +299,44 @@ export default function ManageHabits() {
                         <Input
                           defaultValue={ habit.name}
                           value={editingHabit?.name}
-                          onChange={(e) => startEditing({ ...editingHabit!, name: e.target.value })}
+                          onChange={(e) => setEditingHabit({ ...editingHabit!, name: e.target.value })}
                         />
                         <div className="flex space-x-2">
                           <Input
                             type="time"
                             defaultValue={habit.fromTime}
                             value={editingHabit?.fromTime}
-                            onChange={(e) =>  startEditing({ ...editingHabit!, fromTime: e.target.value })}
+                            onChange={(e) =>  setEditingHabit({ ...editingHabit!, fromTime: e.target.value })}
                           />
                           <Input
                             type="time"
                             defaultValue={habit.toTime}
                             value={editingHabit?.toTime}
-                            onChange={(e) => startEditing({ ...editingHabit!, toTime: e.target.value })}
+                            onChange={(e) => setEditingHabit({ ...editingHabit!, toTime: e.target.value })}
                           />
                         </div>
-                        <Button onClick={() => saveEdit(editingHabit!.id, editingHabit!.name ?? habit.name, editingHabit!.fromTime ?? habit.fromTime, editingHabit!.toTime ?? habit.toTime)} className="w-full">
-                          Save Changes
+                        <Button onClick={() => saveEdit(editingHabit!.id, editingHabit!.name ?? habit.name, editingHabit!.fromTime ?? habit.fromTime, editingHabit!.toTime ?? habit.toTime)} className="w-full" disabled={isLoading}>
+                          {isLoading ? (
+                            <LoaderCircle className="animate-spin h-5 w-5 mx-auto text-white" />
+                          ) : (
+                            "Save Changes"
+                          )}
                         </Button>
                       </div>
                     </DialogContent>
                   </Dialog>
-                  <Button variant="ghost" size="icon" onClick={() => deleteHabit(habit.id)}>
-                    <Trash2 className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" onClick={() => deleteHabit(habit.id)} disabled={isLoading}>
+                    {isLoading ? (
+                      <LoaderCircle className="animate-spin h-4 w-4 mx-auto text-white" />
+                    ) : (
+                      <Trash2 className="h-4 w-4" />
+                    )}
                   </Button>
                 </div>
               </li>
             ))}
           </ul>
-        )}
+        {/* )} */}
       </CardContent>
     </Card>
   )
