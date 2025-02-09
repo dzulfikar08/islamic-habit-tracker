@@ -70,10 +70,12 @@ export default function History() {
 
   return (
     <div className="space-y-4">
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle>Habit History</CardTitle>
+      <Card className="w-full mx-auto">
+      <div className="sticky -top-5 bg-white z-10 rounded-lg">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-2xl font-bold">History</CardTitle>
         </CardHeader>
+      </div>
         <CardContent>
           <div className="gap-4 mb-4 grid grid-cols-2 justify-items-center">
             <Input

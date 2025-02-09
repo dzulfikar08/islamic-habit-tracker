@@ -9,7 +9,7 @@ export default function DoaDhuha() {
   const router = useRouter()
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full mx-auto">
       <div className="sticky -top-5 bg-white z-10 rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between">
         <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4" /></Button>

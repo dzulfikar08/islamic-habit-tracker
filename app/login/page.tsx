@@ -57,7 +57,7 @@ export default function LoginPage() {
 
   return (
     <div className="h-full flex items-center justify-center px-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Login to Mutabaah Yaumiyah 🌙</CardTitle>
         </CardHeader>

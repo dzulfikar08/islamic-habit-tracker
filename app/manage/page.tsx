@@ -217,7 +217,7 @@ export default function ManageHabits() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full mx-auto">
       <div className="sticky -top-5 bg-white z-10 rounded-lg">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Manage Habits</CardTitle>
@@ -282,7 +282,7 @@ export default function ManageHabits() {
                   </span>
                 </div>
                 <div>
-                  <Dialog open={isDialogEditOpen} onOpenChange={setIsDialogEditOpen}>
+                  <Dialog  open={isDialogEditOpen} onOpenChange={setIsDialogEditOpen}>
                     <DialogTrigger asChild>
                       <Button variant="ghost" size="icon" onClick={() => {
                         setEditingHabit(habit);
@@ -291,7 +291,7 @@ export default function ManageHabits() {
                         <Pencil className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="w-5/6">
                       <DialogHeader>
                         <DialogTitle>Edit Habit</DialogTitle>
                       </DialogHeader>

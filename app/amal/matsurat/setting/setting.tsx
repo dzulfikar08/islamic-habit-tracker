@@ -42,7 +42,7 @@ export const Setting = () => {
     const router = useRouter()
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full mx-auto">
       <CardHeader>
       <div className="flex items-center justify-between">
 

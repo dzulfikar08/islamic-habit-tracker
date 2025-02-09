@@ -8,7 +8,7 @@ export default function Amal() {
   const router = useRouter()
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full mx-auto">
       <div className="sticky -top-5 bg-white z-10 rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-2xl font-bold">Amal</CardTitle>
