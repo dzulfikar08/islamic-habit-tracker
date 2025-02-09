@@ -326,11 +326,7 @@ export default function ManageHabits() {
                     </DialogContent>
                   </Dialog>
                   <Button variant="ghost" size="icon" onClick={() => deleteHabit(habit.id)} disabled={isLoading}>
-                    {isLoading ? (
-                      <LoaderCircle className="animate-spin h-4 w-4 mx-auto text-white" />
-                    ) : (
                       <Trash2 className="h-4 w-4" />
-                    )}
                   </Button>
                 </div>
               </li>
