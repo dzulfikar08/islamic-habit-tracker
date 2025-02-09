@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Pencil, Trash2, Plus, LoaderCircle } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
-import useSWR, { mutate } from "swr"
+import useSWR from "swr"
 import {useRouter} from "next/navigation"
 import { useAuth } from "../contexts/AuthContext"
 

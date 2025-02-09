@@ -37,7 +37,7 @@ export const Setting = () => {
   } = useThemeContext();
 
   const selectedFontSize =
-    fontSizes.find((size) => size.value === fontSize) || fontSizes[1];
+    fontSizes.find((size) => size.value === fontSize) || fontSizes[0];
 
     const router = useRouter()
 

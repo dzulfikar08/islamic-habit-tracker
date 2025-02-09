@@ -24,9 +24,9 @@ export const ThemeContextProvider: React.FC<ThemeProviderProps> = ({
   // Ensure localStorage is only accessed in the browser
   const getInitialFontSize = (): string => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("fontSize") || "medium";
+      return localStorage.getItem("fontSize") || "small";
     }
-    return "medium";
+    return "small";
   };
 
   const getInitialLatin = (): boolean => {

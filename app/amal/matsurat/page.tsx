@@ -50,10 +50,10 @@ export default function Matsurat() {
       <div className="sticky -top-5 bg-white z-10 rounded-lg">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4" /></Button>
+            <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4"/></Button>
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="ghost" className="text-xl font-bold flex items-center justify-center">{selectedData.title} <ChevronDown /></Button>
+                <Button variant="ghost" className="text-md font-bold flex items-center justify-center">{selectedData.title} <ChevronDown/></Button>
               </PopoverTrigger>
               <PopoverContent>
                 <Command>
