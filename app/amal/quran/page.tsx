@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, ChevronLeft, ChevronRight, LoaderIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import localFont from "next/font/local"
-import quran_pages from "./quran_pages/1.json"
 
 const uthmani = localFont({
   src: "../../../public/fonts/uthmani.otf",
@@ -27,17 +26,16 @@ export default function Quran() {
   const fetchVerses = async (page: number) => {
     try {
       setIsLoading(true)
-      const response = await fetch(`https://api.globalquran.com/page/${page}/quran-uthmani-hafs?API+Key=123`, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      const data = await response.json()
-      setVerses(data.quran['quran-uthmani-hafs'])
+      const response = await import(`./quran_pages/${page}.json`)
+      let quran = response.quran["quran-uthmani-hafs"]
+
+      setVerses(quran)
+      // console.log(JSON.stringify(response))
     } catch (error) {
       console.error("Failed to fetch verses", error)
     } finally {
-      setIsLoading(false)}
+      setIsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -87,7 +85,6 @@ export default function Quran() {
     </div>
   )}
 </CardContent>
-
 
 
     </Card>
