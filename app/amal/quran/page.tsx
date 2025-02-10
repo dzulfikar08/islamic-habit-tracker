@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, ChevronLeft, ChevronRight, LoaderIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import localFont from "next/font/local"
+import quran_pages from "./quran_pages/1.json"
 
 const uthmani = localFont({
   src: "../../../public/fonts/uthmani.otf",
