@@ -3,3 +3,10 @@ compatibility_date = "2024-12-05"
 compatibility_flags = ["nodejs_compat"]
 
 pages_build_output_dir = ".vercel/output/static"
+
+
+[[ d1_databases ]]
+binding = "DB"
+database_name = "habit-tracker"
+database_id = "YOUR DB ID"
+migrations_dir = "drizzle/migrations"

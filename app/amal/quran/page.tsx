@@ -9,7 +9,6 @@ import localFont from "next/font/local"
 const uthmani = localFont({
   src: "../../../public/fonts/uthmani.otf",
   display: "swap",
-  
 })
 
 export default function Quran() {
@@ -20,7 +19,7 @@ export default function Quran() {
     return 1
   })
   const [verses, setVerses] = useState<Record<string, any>>({})
-  const [isLoading, setIsLoading] =useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
   const fetchVerses = async (page: number) => {
@@ -30,7 +29,6 @@ export default function Quran() {
       let quran = response.quran["quran-uthmani-hafs"]
 
       setVerses(quran)
-      // console.log(JSON.stringify(response))
     } catch (error) {
       console.error("Failed to fetch verses", error)
     } finally {
@@ -48,12 +46,21 @@ export default function Quran() {
     setPage(newPage)
   }
 
+  const handleSwipe = (event: React.TouchEvent<HTMLDivElement>) => {
+    const xDiff = event.changedTouches[0].clientX - event.touches[0].clientX
+    if (xDiff > 50) {
+      handlePageChange(page - 1)
+    } else if (xDiff < -50) {
+      handlePageChange(page + 1)
+    }
+  }
+
   return (
-    <Card className="w-full mx-auto">
+    <Card className="w-full mx-auto" onTouchStart={handleSwipe}>
       <div className="sticky -top-5 bg-white z-10 rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between">
           <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4" /></Button>
-          <CardTitle className="text-2xl font-bold">Al Quran</CardTitle>
+          <CardTitle className="text-2xl font-bold"></CardTitle>
           <div className="flex flex-row items-center">
             <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1}><ChevronLeft className="w-4 h-4" /></Button>
             <input
@@ -69,24 +76,22 @@ export default function Quran() {
         </CardHeader>
       </div>
       <CardContent>
-  {isLoading ? (
-    <div className="h-96 flex items-center justify-center">
-      <LoaderIcon className="animate-spin h-10 w-10" />
-    </div>
-  ) : (
-    <div className="h-[30rem] flex flex-col justify-center items-center">
-      <p className={`text-[1.4rem] leading-[2.2rem] text-justify rtl ${uthmani.className}`}>
-        {Object.entries(verses).map(([key, verse]) => (
-          <span key={key} className="inline">
-            {verse.verse} <span className="ayah-number">{Number(verse.ayah).toLocaleString('ar-EG')}</span> 
-          </span>
-        ))}
-      </p>
-    </div>
-  )}
-</CardContent>
-
-
+        {isLoading ? (
+          <div className="h-96 flex items-center justify-center">
+            <LoaderIcon className="animate-spin h-10 w-10" />
+          </div>
+        ) : (
+          <div className="h-[30rem] flex flex-col justify-center items-center">
+            <p className={`text-[1.4rem] leading-[2.2rem] text-justify rtl ${uthmani.className}`}>
+              {Object.entries(verses).map(([key, verse]) => (
+                <span key={key} className="inline">
+                  {verse.verse} <span className="ayah-number">{Number(verse.ayah).toLocaleString('ar-EG')}</span> 
+                </span>
+              ))}
+            </p>
+          </div>
+        )}
+      </CardContent>
     </Card>
   )
 }
