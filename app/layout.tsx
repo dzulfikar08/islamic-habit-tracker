@@ -38,7 +38,7 @@ export default function RootLayout({
 
     <AuthProvider> 
       <ThemeContextProvider>
-      <html lang="en" className={`${inter.className}`}> 
+      <html lang="en"  className={`${inter.className}`}> 
         <body>
           <LayoutContent>{children}</LayoutContent>
           <Toaster />

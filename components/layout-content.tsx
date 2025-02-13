@@ -19,13 +19,11 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
 
     return (
         <div className="flex flex-col h-screen">
-            <header className="bg-secondary text-primary-foreground p-4">
+            {/* <header className="bg-secondary text-primary-foreground p-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <Link href="/">
                     <Image src="/android-chrome-192x192.png" alt="logo" width={32} height={32}/>
                     </Link>
-                    {/* <h1 className="text-xl font-bold">Mutabaah Yaumiyah</h1> */}
-                    {/* {isLoggedIn && <p className="text-sm">{`Hi `}<strong>{localStorage.getItem('username')}</strong>!</p>} */}
                     <div className="flex items-center justify-between gap-2">
                     {session && <p className="text-sm">{`Hi `}<strong>{session.user?.name}</strong>!</p>}
                     {session && 
@@ -39,12 +37,11 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
                          />
                     }
                     </div>
-                    
                     <SignInButton/>
-                    {/* {isLoggedIn && <SignInButton/>} */}
-                    {/* <LogoutButton /> */}
                 </div>
-            </header>
+            </header> */}
+            <header></header>
+            
             <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">{children}</main>
             {isLoggedIn && (
                 <nav className="bg-secondary text-primary-foreground p-4">

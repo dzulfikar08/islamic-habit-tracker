@@ -16,7 +16,7 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import {usePathname, useRouter} from "next/navigation"
+import { useRouter } from "next/navigation"
 import localFont from "next/font/local"
 
 const uthmani = localFont({
@@ -56,7 +56,7 @@ export const Setting = () => {
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-          <p className="font-bold">Preview Perubahan:</p>
+          <p className="font-bold">Preview Changes:</p>
           <p className={`text-right ${uthmani.className} ${selectedFontSize.size} mb-4`}>
             بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ
           </p>
@@ -66,11 +66,11 @@ export const Setting = () => {
         
         <div className="space-y-4 border rounded-lg p-4 bg-white dark:bg-gray-700">
           <div className="flex justify-between items-center">
-            <span>Tampilkan Arti</span>
+            <span>Show Translation</span>
             <Switch className="border border-spacing-1" checked={translationVisible} onCheckedChange={toggleTranslation} />
           </div>
           <div className="flex justify-between items-center">
-            <span>Tampilkan Latin</span>
+            <span>Show Latin</span>
             <Switch className="border border-spacing-1" checked={latinVisible} onCheckedChange={toggleLatin} />
           </div>
           <div className="flex justify-between items-center">
