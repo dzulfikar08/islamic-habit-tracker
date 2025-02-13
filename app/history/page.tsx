@@ -71,7 +71,7 @@ export default function History() {
   return (
     <div className="space-y-4">
       <Card className="w-full mx-auto">
-      <div className="sticky -top-5 bg-white z-10 rounded-lg">
+      <div className="sticky -top-5 z-10 rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-2xl font-bold">History</CardTitle>
         </CardHeader>
@@ -94,7 +94,7 @@ export default function History() {
           <div className="mt-8 h-64 w-full">
             {isLoading ? (
               <div className="flex items-center justify-center">
-                <LoaderIcon className="animate-spin h-5 w-5 text-blue-500" />
+                <LoaderIcon className="animate-spin h-5 w-5 text-secondary" />
               </div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">

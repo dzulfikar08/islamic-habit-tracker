@@ -131,7 +131,7 @@ export default function Habits() {
 
   return (
     <Card className="w-full mx-auto">
-      <div className="sticky -top-5 bg-white z-10 rounded-lg">
+      <div className="sticky -top-5 z-10 rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-2xl font-bold">Habits</CardTitle>
           {habits.length === 0 ? null : (

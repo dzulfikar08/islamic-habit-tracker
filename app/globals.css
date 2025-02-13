@@ -4,6 +4,63 @@
 
 @layer base {
   :root {
+    --background: 210 100% 98%; /* Soft Mint */
+    --foreground: 25 25% 15%; /* Deep Indigo */
+    
+    --primary: 140 60% 40%; /* Emerald Green */
+    --primary-foreground: 0 0% 100%; /* White */
+  
+    --secondary: 180 60% 35%; /* Teal Blue */
+    --secondary-foreground: 0 0% 100%; /* White */
+  
+    --accent: 45 100% 55%; /* Golden Amber */
+    --accent-foreground: 0 0% 20%; /* Dark Text */
+  
+    --muted: 34 70% 85%; /* Warm Sand */
+    --muted-foreground: 25 25% 20%; /* Dark Brown */
+  
+    --card: 34 70% 85%; /* Warm Sand */
+    --card-foreground: 25 25% 15%; /* Deep Indigo */
+  
+    --sidebar-background: 210 100% 98%; /* Soft Mint */
+    --sidebar-foreground: 25 25% 15%; /* Deep Indigo */
+    --sidebar-primary: 140 60% 40%; /* Emerald Green */
+    --sidebar-primary-foreground: 0 0% 100%; /* White */
+  
+    --border: 140 40% 30%; /* Dark Emerald */
+    --ring: 140 60% 40%; /* Emerald Green */
+
+
+    --popover: 210 100% 98%; /* Soft Mint */
+    --popover-foreground: 25 25% 15%; /* Deep Indigo */
+  
+    /* Chart Colors */
+    --chart-1: 140 60% 40%; /* Emerald Green */
+    --chart-2: 180 60% 35%; /* Teal Blue */
+    --chart-3: 45 100% 55%; /* Golden Amber */
+    --chart-4: 34 70% 85%; /* Warm Sand */
+    --chart-5: 25 25% 15%; /* Deep Indigo */
+
+    --radius: 0.5rem;
+
+  }
+  
+  /* Dark Mode */
+  .dark {
+    --background: 25 25% 15%; /* Deep Indigo */
+    --foreground: 210 100% 98%; /* Soft Mint */
+  
+    --card: 25 25% 20%; /* Dark Brown */
+    --card-foreground: 210 100% 98%; /* Soft Mint */
+  
+    --muted: 25 25% 20%; /* Dark Brown */
+    --muted-foreground: 210 100% 85%; /* Soft Mint */
+  
+    --sidebar-background: 25 25% 15%; /* Deep Indigo */
+    --sidebar-foreground: 210 100% 98%; /* Soft Mint */
+  }
+  
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -34,7 +91,8 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
-  }
+  } */
+/*    
 
   .dark {
     --background: 222.2 84% 4.9%;
@@ -65,7 +123,7 @@
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 217.2 32.6% 17.5%;
-  }
+  } */
 }
 
 @layer base {

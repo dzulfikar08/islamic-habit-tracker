@@ -67,11 +67,11 @@ export const Setting = () => {
         <div className="space-y-4 border rounded-lg p-4 bg-white dark:bg-gray-700">
           <div className="flex justify-between items-center">
             <span>Tampilkan Arti</span>
-            <Switch checked={translationVisible} onCheckedChange={toggleTranslation} />
+            <Switch className="border border-spacing-1" checked={translationVisible} onCheckedChange={toggleTranslation} />
           </div>
           <div className="flex justify-between items-center">
             <span>Tampilkan Latin</span>
-            <Switch checked={latinVisible} onCheckedChange={toggleLatin} />
+            <Switch className="border border-spacing-1" checked={latinVisible} onCheckedChange={toggleLatin} />
           </div>
           <div className="flex justify-between items-center">
             <span>Font Size</span>

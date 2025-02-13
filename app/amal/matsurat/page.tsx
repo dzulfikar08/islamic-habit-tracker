@@ -55,7 +55,7 @@ export default function Matsurat() {
 
   return (
     <Card className="w-full mx-auto">
-      <div className="sticky -top-5 bg-white z-10 rounded-lg">
+      <div className="sticky -top-5 z-10 bg-muted rounded-lg">
         <CardHeader>
           <div className="flex items-center justify-between">
             <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4"/></Button>
@@ -77,7 +77,7 @@ export default function Matsurat() {
           </div>
         </CardHeader>
       </div>
-      <CardContent className="p-0 border-0 border-opacity-0">
+      <CardContent className="p-0 border-0 border-opacity-0 bg-primary-foreground">
         {dzikirData.map((item, index) => (
           <DzikrItem
             key={index}
