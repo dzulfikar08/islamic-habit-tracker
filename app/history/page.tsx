@@ -35,7 +35,7 @@ export default function History() {
   
 
   // Fetch data with SWR
-  const { data, error, isLoading, mutate } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/habits/history?fromDate=${startDate}&toDate=${endDate}`, 
+  const { data, error, isLoading, mutate } = useSWR(`/api/habits/history?fromDate=${startDate}&toDate=${endDate}`, 
     fetcher,
     {
       revalidateOnFocus: false,
@@ -52,7 +52,7 @@ export default function History() {
           router.push("/login")
         }
       }
-    });
+    }) as { data: { data: { completion: number; date: string }[] }; error: any; isLoading: boolean; mutate: () => void };
 
   // Handle loading & error states
   if (error) return <p className="text-center text-red-500">Failed to load data</p>;

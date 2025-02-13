@@ -5,6 +5,8 @@ import { AuthProvider } from "./contexts/AuthContext"
 import { Toaster } from "@/components/ui/toaster"
 import LayoutContent from "@/components/layout-content"
 import { ThemeContextProvider } from "./contexts/ThemeContext"
+import Providers from "./components/Providers"
+import { Appbar } from "./components/Appbar"
 
 
 const inter = Inter({ subsets: ["latin"] })
@@ -32,6 +34,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <Providers>
+
     <AuthProvider> 
       <ThemeContextProvider>
       <html lang="en" className={`${inter.className}`}> 
@@ -42,6 +46,8 @@ export default function RootLayout({
       </html>
       </ThemeContextProvider>
     </AuthProvider>
+    </Providers>
+
   )
 }
 

@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast"
 import useSWR from "swr"
 import {useRouter} from "next/navigation"
 import { useAuth } from "../contexts/AuthContext"
+import { FetcherResponse } from "swr/_internal"
 
 
 
@@ -20,11 +21,15 @@ interface Habit {
   toTime: string
 }
 
-const fetcher = (url: string, token: string) => fetch(url, {headers: { "Authorization": `Bearer ${document.cookie.split("; ").find((row) => row.startsWith("authToken="))?.split("=")[1]}` }})
-.then((res) => {
-  if (!res.ok) throw res; // Ensure errors can be caught in `onError`
-  return res.json();
-})
+const fetcher = async (url: string, token: string): Promise<{ data: any; }> => {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data : any = await response.json();
+  return { data };
+};
 
 export default function ManageHabits() {
     const { logout } = useAuth()
@@ -41,14 +46,14 @@ export default function ManageHabits() {
 
 
 
-  const { data: habitsFetched, isValidating, mutate } = useSWR<{ data: Habit[]}>(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/habits`,
+  const { data: habitsFetched, isValidating, mutate } = useSWR<{ data: any}>(
+    `/api/habits`,
     fetcher,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
 
-      onError: (error) => {
+      onError: (error: any) => {
         if (error?.status === 401) {
           toast({
             title: "Unauthorized",
@@ -65,7 +70,7 @@ export default function ManageHabits() {
   useEffect(() => {
     if (habitsFetched?.data) {
       setHabits(
-        habitsFetched.data.sort((a, b) =>
+        habitsFetched.data.sort((a:any, b:any) =>
           a.fromTime.localeCompare(b.fromTime)
         )
       );
@@ -102,7 +107,7 @@ export default function ManageHabits() {
       })
         .then((response) => {
           if (!response.ok) {
-            response.json().then((error) => {
+            response.json().then((error: any) => {
               toast({
                 title: "Failed",
                 description: error.messages,
@@ -159,7 +164,7 @@ export default function ManageHabits() {
           logout()
           router.push("/login")
         } else {
-          response.json().then((error) => {
+          response.json().then((error:any) => {
             toast({
               title: "Failed",
               description: error.messages,

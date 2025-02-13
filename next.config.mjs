@@ -1,3 +1,6 @@
+import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
+
+
 let userConfig = undefined
 try {
   userConfig = await import('./v0-user-next.config')
@@ -19,6 +22,7 @@ const nextConfig = {
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
+    runtime: "edge",
     parallelServerCompiles: true,
   },
 }
@@ -48,3 +52,7 @@ function mergeConfig(nextConfig, userConfig) {
 }
 
 export default nextConfig
+
+if (process.env.NODE_ENV === 'development') {
+  await setupDevPlatform();
+}

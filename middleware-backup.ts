@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { decode } from "jsonwebtoken"
-import { cookies } from "next/headers"
 
 
 export function middleware(request: NextRequest) {
-  const authToken = request.cookies.get("authToken")
+  const authToken = request.cookies.get("next-auth.session-token")
   const isLoginPage = request.nextUrl.pathname === "/login"
 
   if (authToken === undefined && !isLoginPage) {

@@ -7,80 +7,44 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAuth } from "../contexts/AuthContext"
 import { useToast } from "@/hooks/use-toast"
+import { getSession, signIn, useSession } from "next-auth/react"
+// import { signIn } from "@/auth"
+import { SiGoogle } from '@icons-pack/react-simple-icons';
 
 
 export default function LoginPage() {
   const { toast } = useToast()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const router = useRouter()
-  const { login } = useAuth()
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
 
+
+  const handleSignIn = async () => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      })
-      
-      if (response.ok) {
+
+        await signIn("google", { callbackUrl: "/api/auth/signin/callback" })
+        
+        
+    } catch (error: any) {
         toast({
-          title: "Login Successful",
-          description: "You have successfully logged in",
-          variant: "default"
+            title: "Error",
+            description: `Error while trying to login, ${String(error.message)}`,
+            variant: "destructive",
         })
-        const data = await response.json()
-        localStorage.setItem("username", data.data.NAME)
-        login(data.data.token)
-        router.push("/")
-        console.log("routing to /manage")
-      } else {
-        const error = await response.json()
-        toast({
-          title: "Login Failed",
-          description: error.messages,
-          variant: "destructive"
-        })
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Error while trying to login",
-        variant: "destructive"
-      })
     }
-  }
+}
+
+ 
 
   return (
     <div className="h-full flex items-center justify-center px-4">
       <Card className="w-full mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Login to Mutabaah Yaumiyah 🌙</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Sign In to Mutabaah Yaumiyah 🌙</CardTitle>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <Input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </form>
+        <CardContent className="flex flex-center items-center justify-center">
+         
+          <Button variant="default" onClick={() => handleSignIn()}>Sign In With Google
+            <SiGoogle size={20}/>
+          </Button>
+
         </CardContent>
       </Card>
     </div>

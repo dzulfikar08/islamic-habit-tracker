@@ -21,7 +21,7 @@ interface Habit {
   completed: boolean
 }
 
-const fetcher = (url: string) => 
+const fetcher = (url: string):Promise<any> => 
   fetch(url, { 
     headers: { 
       "Authorization": `Bearer ${document.cookie.split("; ")
@@ -41,7 +41,7 @@ export default function Habits() {
   const [loading, setLoading] = useState<number | null>(null)
   const { toast } = useToast()
   const { data: habitsFetched, isValidating, mutate } = useSWR<{ data: Habit[] }>(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/habits/transaction?habitDate=${format(selectedDate ?? new Date(), "yyyy-MM-dd")}`,
+    `/api/transactions?habitDate=${format(selectedDate ?? new Date(), "yyyy-MM-dd")}`,
     fetcher,
     {
       revalidateOnFocus: true,
@@ -113,7 +113,7 @@ export default function Habits() {
         router.push("/login")
       }
       else {
-        res.json().then((json) => alert(json.message));
+        res.json().then((json:any) => alert(json.message));
       }
     }).finally(() => setLoading(null));
   }
