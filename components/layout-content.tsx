@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import type React from "react"
-import { Home, Settings, BarChart, HomeIcon, Settings2, BarChart2, BookOpenText } from "lucide-react"
+import { Home, Settings, BarChart, HomeIcon, Settings2, BarChart2, BookOpenText, MoreHorizontal } from "lucide-react"
 import { useAuth } from "@/app/contexts/AuthContext"
 import LogoutButton from "./LogoutButton"
 import { usePathname, useRouter } from "next/navigation"
@@ -64,6 +64,10 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
                         <Link href="/amal" className="flex flex-col items-center">
                             <BookOpenText size={24} className={selected("/amal") ? "text-accent"  : "text-muted"} />
                             <span className={`text-xs mt-1 ${selected("/amal") ? "text-accent"  : "text-muted" }` }>Amal</span>
+                        </Link>
+                        <Link href="/more" className="flex flex-col items-center">
+                            <MoreHorizontal size={24} className={selected("/more") ? "text-accent"  : "text-muted"} />
+                            <span className={`text-xs mt-1 ${selected("/more") ? "text-accent"  : "text-muted" }` }>More</span>
                         </Link>
                     </div>
                 </nav>

@@ -37,7 +37,7 @@ const DzikirItem: React.FC<DzikirItemProps> = ({
 
   return (
     <div
-      className={`mb-6 p-4 rounded-lg shadow-lg border hover:shadow-xl `}
+      className={`mb-6 p-4 rounded-lg shadow-lg border hover:shadow-xl bg-primary-foreground `}
     >
       <h2
         className={`text-lg font-semibold mb-2 `}

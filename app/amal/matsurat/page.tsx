@@ -61,7 +61,7 @@ export default function Matsurat() {
             <Button variant="outline" onClick={() => router.back()}><ArrowLeft className="w-4 h-4"/></Button>
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="ghost" className="text-md font-bold flex items-center justify-center">{selectedMatsurat} <ChevronDown/></Button>
+                <Button variant="ghost" className="text-md font-bold flex items-center justify-center text-muted-foreground">{selectedMatsurat} <ChevronDown/></Button>
               </PopoverTrigger>
               <PopoverContent>
                 <Command>
@@ -77,13 +77,14 @@ export default function Matsurat() {
           </div>
         </CardHeader>
       </div>
-      <CardContent className="p-0 border-0 border-opacity-0 bg-primary-foreground">
+      <CardContent className="p-0 border-0 border-opacity-0 bg-muted">
         {dzikirData.map((item, index) => (
           <DzikrItem
             key={index}
             item={item}
             index={index}
             showNumber={showNumber}
+
           />
         ))}
       </CardContent>
